@@ -7,4 +7,5 @@ list2 = [3, 2, 4]
 result1 = numpy.prod(list1)
 result2 = numpy.prod(list2)
 print(result1)
-print(result2) 
+print(result2)
+#New code here...
