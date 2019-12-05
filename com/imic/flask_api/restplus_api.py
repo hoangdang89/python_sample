@@ -3,7 +3,7 @@ from flask_restplus import Api, Resource
 from waitress import serve
 
 app = Flask(__name__)
-rpApi = Api(app=app, version='1.0', title='My Blog API',
+rpApi = Api(version='1.0', title='My Blog API',
           description='A simple demonstration of a Flask RestPlus powered API')
 
 @rpApi.route("/hello")
@@ -24,5 +24,12 @@ class CategoryCollection(Resource):
         """Creates a new blog category."""
         return None, 201
 
-rpApi.add_namespace(ns_category)
+
+def initialize_app(flask_app):
+    blueprint = Blueprint('api', __name__, url_prefix='/api')
+    rpApi.init_app(blueprint)
+    rpApi.add_namespace(ns_category)
+    flask_app.register_blueprint(blueprint)
+
+initialize_app(app)
 serve(app)
